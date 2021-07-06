@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import { ROLE } from '../../api/role/Role';
 
 /* eslint-disable no-console */
 
@@ -11,9 +12,9 @@ function createUser(email, password, role) {
     email: email,
     password: password,
   });
-  if (role === 'admin') {
+  if (role === ROLE.ADMIN) {
     Roles.createRole(role, { unlessExists: true });
-    Roles.addUsersToRoles(userID, 'admin');
+    Roles.addUsersToRoles(userID, ROLE.ADMIN);
   }
 }
 

@@ -41,3 +41,4 @@ montiapm:agent                   # see http://montiapm.com
 zodern:hide-production-sourcemaps
 mdg:validated-method
 didericis:callpromise-mixin
+meteortesting:mocha

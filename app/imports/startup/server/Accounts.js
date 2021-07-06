@@ -6,15 +6,18 @@ import { ROLE } from '../../api/role/Role';
 /* eslint-disable no-console */
 
 function createUser(email, password, role) {
-  console.log(`  Creating user ${email}.`);
+  console.log(`  Creating user ${email} with role ${role}.`);
   const userID = Accounts.createUser({
     username: email,
     email: email,
     password: password,
   });
   if (role === ROLE.ADMIN) {
-    Roles.createRole(role, { unlessExists: true });
+    Roles.createRole(ROLE.ADMIN, { unlessExists: true });
     Roles.addUsersToRoles(userID, ROLE.ADMIN);
+  } else { // everyone else is just a user.
+    Roles.createRole(ROLE.USER, { unlessExists: true });
+    Roles.addUsersToRoles(userID, ROLE.USER);
   }
 }
 

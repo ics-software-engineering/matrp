@@ -1,9 +1,8 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { Container, Table, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { Stuffs } from '../../api/stuff/Stuff';
+import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItemAdmin from '../components/StuffItemAdmin';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
@@ -46,11 +45,11 @@ ListStuffAdmin.propTypes = {
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   // Get access to Stuff documents.
-  const subscription = Meteor.subscribe(Stuffs.adminPublicationName);
+  const subscription = Stuffs.subscribeStuffAdmin();
   // Determine if the subscription is ready
   const ready = subscription.ready();
-  // Get the Stuff documents
-  const stuffs = Stuffs.collection.find({}).fetch();
+  // Get the Stuff documents and sort by owner then name
+  const stuffs = Stuffs.find({}, { sort: { owner: 1, name: 1 } }).fetch();
   return {
     stuffs,
     ready,

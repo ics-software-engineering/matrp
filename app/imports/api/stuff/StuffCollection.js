@@ -126,6 +126,16 @@ class StuffCollection extends BaseCollection {
     return null;
   }
 
+  /**
+   * Default implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin or Advisor.
+   * This is used in the define, update, and removeIt Meteor methods associated with each class.
+   * @param userId The userId of the logged in user. Can be null or undefined
+   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
+   */
+  assertValidRoleForMethod(userId) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+  }
+
 }
 
 /**

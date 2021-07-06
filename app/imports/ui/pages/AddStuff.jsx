@@ -22,10 +22,10 @@ const formSchema = new SimpleSchema({
 const bridge = new SimpleSchema2Bridge(formSchema);
 
 /** Renders the Page for adding a document. */
-class AddStuff extends React.Component {
+const AddStuff = () => {
 
   // On submit, insert the data.
-  submit(data, formRef) {
+  const submit = (data, formRef) => {
     const { name, quantity, condition } = data;
     const owner = Meteor.user().username;
     const collectionName = Stuffs.getCollectionName();
@@ -36,28 +36,28 @@ class AddStuff extends React.Component {
         swal('Success', 'Item added successfully', 'success');
         formRef.reset();
       });
-  }
+  };
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
-  render() {
-    let fRef = null;
-    return (
-      <Grid container centered>
-        <Grid.Column>
-          <Header as="h2" textAlign="center">Add Stuff</Header>
-          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
-            <Segment>
-              <TextField name='name'/>
-              <NumField name='quantity' decimal={false}/>
-              <SelectField name='condition'/>
-              <SubmitField value='Submit'/>
-              <ErrorsField/>
-            </Segment>
-          </AutoForm>
-        </Grid.Column>
-      </Grid>
-    );
-  }
-}
+  let fRef = null;
+  return (
+    <Grid container centered>
+      <Grid.Column>
+        <Header as="h2" textAlign="center">Add Stuff</Header>
+        <AutoForm ref={ref => {
+          fRef = ref;
+        }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          <Segment>
+            <TextField name='name' />
+            <NumField name='quantity' decimal={false} />
+            <SelectField name='condition' />
+            <SubmitField value='Submit' />
+            <ErrorsField />
+          </Segment>
+        </AutoForm>
+      </Grid.Column>
+    </Grid>
+  );
+};
 
 export default AddStuff;

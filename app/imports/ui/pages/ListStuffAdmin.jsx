@@ -6,35 +6,24 @@ import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItemAdmin from '../components/StuffItemAdmin';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-class ListStuffAdmin extends React.Component {
-
-  // If the subscription(s) have been received, render the page, otherwise show a loading icon.
-  render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
-  }
-
-  // Render the page once subscriptions have been received.
-  renderPage() {
-    return (
-      <Container>
-        <Header as="h2" textAlign="center">List Stuff (Admin)</Header>
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Quantity</Table.HeaderCell>
-              <Table.HeaderCell>Condition</Table.HeaderCell>
-              <Table.HeaderCell>Owner</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {this.props.stuffs.map((stuff) => <StuffItemAdmin key={stuff._id} stuff={stuff} />)}
-          </Table.Body>
-        </Table>
-      </Container>
-    );
-  }
-}
+const ListStuffAdmin = () => ((this.props.ready) ? (
+  <Container>
+    <Header as="h2" textAlign="center">List Stuff (Admin)</Header>
+    <Table celled>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Quantity</Table.HeaderCell>
+          <Table.HeaderCell>Condition</Table.HeaderCell>
+          <Table.HeaderCell>Owner</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {this.props.stuffs.map((stuff) => <StuffItemAdmin key={stuff._id} stuff={stuff} />)}
+      </Table.Body>
+    </Table>
+  </Container>
+) : <Loader active>Getting data</Loader>);
 
 // Require an array of Stuff documents in the props.
 ListStuffAdmin.propTypes = {

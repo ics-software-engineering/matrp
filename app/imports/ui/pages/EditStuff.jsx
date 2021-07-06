@@ -11,44 +11,36 @@ import { updateMethod } from '../../api/base/BaseCollection.methods';
 const bridge = new SimpleSchema2Bridge(Stuffs._schema);
 
 /** Renders the Page for editing a single document. */
-class EditStuff extends React.Component {
+const EditStuff = () => {
 
   // On successful submit, insert the data.
-  submit(data) {
+  const submit = (data) => {
     const { name, quantity, condition, _id } = data;
     const collectionName = Stuffs.getCollectionName();
     const updateData = { id: _id, name, quantity, condition };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
-  }
+  };
 
-  // If the subscription(s) have been received, render the page, otherwise show a loading icon.
-  render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
-  }
-
-  // Render the form. Use Uniforms: https://github.com/vazco/uniforms
-  renderPage() {
-    return (
-      <Grid container centered>
-        <Grid.Column>
-          <Header as="h2" textAlign="center">Edit Stuff</Header>
-          <AutoForm schema={bridge} onSubmit={data => this.submit(data)} model={this.props.doc}>
-            <Segment>
-              <TextField name='name'/>
-              <NumField name='quantity' decimal={false}/>
-              <SelectField name='condition'/>
-              <SubmitField value='Submit'/>
-              <ErrorsField/>
-              <HiddenField name='owner' />
-            </Segment>
-          </AutoForm>
-        </Grid.Column>
-      </Grid>
-    );
-  }
-}
+  return (this.props.ready) ? (
+    <Grid container centered>
+      <Grid.Column>
+        <Header as="h2" textAlign="center">Edit Stuff</Header>
+        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={this.props.doc}>
+          <Segment>
+            <TextField name='name' />
+            <NumField name='quantity' decimal={false} />
+            <SelectField name='condition' />
+            <SubmitField value='Submit' />
+            <ErrorsField />
+            <HiddenField name='owner' />
+          </Segment>
+        </AutoForm>
+      </Grid.Column>
+    </Grid>
+  ) : <Loader active>Getting data</Loader>;
+};
 
 // Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use.
 EditStuff.propTypes = {

@@ -5,6 +5,8 @@
     "@babel/runtime": "^7.14.6",
     "classnames": "^2.3.1",
     "core-js": "^3.15.2",
+    "faker": "^5.5.3",
+    "fast-check": "^2.17.0",
     "graphql": "^14.5.8",
     "meteor-node-stubs": "^1.0.3",
     "prop-types": "^15.7.2",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.23.4",
@@ -30,11 +33,13 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-utils": "^2.1.0",
+    "puppeteer": "^10.1.0",
     "testcafe": "^1.14.2"
   },
   "scripts": {
     "start": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json",
     "lint": "eslint --quiet --fix --ext .jsx --ext .js ./imports",
+    "test-unit": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3100",
     "testcafe-development": "testcafe chrome tests/*.testcafe.js",
     "testcafe": "testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\""
   }

@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { expect } from 'chai';
 import faker from 'faker';
 import fc from 'fast-check';
 import { Stuffs, stuffConditions } from './StuffCollection';
+import { removeAllEntities } from '../base/BaseUtilities';
 
 /* eslint prefer-arrow-callback: "off",  no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -11,15 +11,14 @@ import { Stuffs, stuffConditions } from './StuffCollection';
 if (Meteor.isServer) {
   describe('StuffCollection', function testSuite() {
     before(function setup() {
-      resetDatabase();
+      removeAllEntities();
     });
 
     after(function teardown() {
-      resetDatabase();
+      removeAllEntities();
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       fc.assert(
         fc.property(fc.lorem(2), fc.integer(1, 10), fc.lorem(1), fc.integer(0, stuffConditions.length - 1),
           (name, quantity, owner, choice) => {
@@ -39,14 +38,13 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test2(done) {
-      this.timeout(5000);
       const name = faker.lorem.words();
-      const quantity = faker.random.number({
+      const quantity = faker.datatype.number({
         min: 1,
         max: 10,
       });
       const owner = faker.lorem.words();
-      const condition = stuffConditions[faker.random.number({ min: 1, max: stuffConditions.length - 1 })];
+      const condition = stuffConditions[faker.datatype.number({ min: 1, max: stuffConditions.length - 1 })];
       const docID = Stuffs.define({
         name,
         quantity,

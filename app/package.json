@@ -1,5 +1,12 @@
 {
-  "name": "meteor-application-template-react",
+  "name": "meteor-application-template-react-production",
+  "version": "1.0.3",
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    }
+  },
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.14.6",
@@ -33,7 +40,9 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-utils": "^2.1.0",
+    "moment": "^2.29.1",
     "puppeteer": "^10.1.0",
+    "replace-in-file": "^6.2.0",
     "testcafe": "^1.14.2"
   },
   "scripts": {
@@ -43,6 +52,7 @@
     "test-integration": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --full-app --once --driver-package meteortesting:mocha --port 3100",
     "test-acceptance-development": "testcafe chrome tests/*.testcafe.js",
     "test-acceptance": "testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\"",
-    "test-all": "meteor reset && meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance"
+    "test-all": "meteor reset && meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
+    "unimported": "npx unimported"
   }
 }

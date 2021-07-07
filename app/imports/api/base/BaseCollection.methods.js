@@ -3,7 +3,7 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { MARTP } from '../matrp/MATRP';
+import { MATRP } from '../matrp/MATRP';
 import { ROLE } from '../role/Role';
 
 /**
@@ -19,7 +19,7 @@ export const defineMethod = new ValidatedMethod({
   run({ collectionName, definitionData }) {
     if (Meteor.isServer) {
       // console.log(collectionName, this.userId, definitionData);
-      const collection = MARTP.getCollection(collectionName);
+      const collection = MATRP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       return collection.define(definitionData);
     }
@@ -34,7 +34,7 @@ export const updateMethod = new ValidatedMethod({
   run({ collectionName, updateData }) {
     if (Meteor.isServer) {
       // console.log('updateMethod(%o, %o)', collectionName, updateData);
-      const collection = MARTP.getCollection(collectionName);
+      const collection = MATRP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       collection.update(updateData.id, updateData);
     }
@@ -47,7 +47,7 @@ export const removeItMethod = new ValidatedMethod({
   validate: null,
   run({ collectionName, instance }) {
     if (Meteor.isServer) {
-      const collection = MARTP.getCollection(collectionName);
+      const collection = MATRP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       return collection.removeIt(instance);
     }
@@ -68,7 +68,7 @@ export const dumpDatabaseMethod = new ValidatedMethod({
     // Don't do the dump except on server side (disable client-side simulation).
     // Return an object with fields timestamp and collections.
     if (Meteor.isServer) {
-      const collections = _.sortBy(MARTP.collectionLoadSequence.map((collection) => collection.dumpAll()),
+      const collections = _.sortBy(MATRP.collectionLoadSequence.map((collection) => collection.dumpAll()),
         (entry) => entry.name);
       const timestamp = new Date();
       return { timestamp, collections };

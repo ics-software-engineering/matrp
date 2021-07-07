@@ -37,6 +37,7 @@ class MATRPClass {
    * @throws { Meteor.Error } If collectionName does not name a collection.
    */
   getCollection(collectionName) {
+    // console.log('MATRP', collectionName, this.collectionAssociation);
     const collection = this.collectionAssociation[collectionName];
     if (!collection) {
       throw new Meteor.Error(`Called MARTP.getCollection with unknown collection name: ${collectionName}`);
@@ -45,4 +46,4 @@ class MATRPClass {
   }
 }
 
-export const MARTP = new MATRPClass();
+export const MATRP = new MATRPClass();

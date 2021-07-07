@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { MARTP } from '../../api/matrp/MATRP';
+import { MATRP } from '../../api/matrp/MATRP';
 
 // Call publish for all the collections.
-MARTP.collections.forEach(c => c.publish());
+MATRP.collections.forEach(c => c.publish());
 
 // alanning:roles publication
 // Recommended code to publish roles for each user.

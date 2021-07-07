@@ -37,7 +37,17 @@ if (Meteor.isServer) {
       done();
     });
 
-    it('Can update', function test2(done) {
+    it('Can define duplicates', function test2() {
+      const name = faker.animal.dog();
+      const quantity = faker.datatype.number({ min: 1, max: 5 });
+      const owner = faker.internet.email();
+      const condition = stuffConditions[Math.floor(Math.random() * stuffConditions.length)];
+      const docID1 = Stuffs.define({ name, quantity, condition, owner });
+      const docID2 = Stuffs.define({ name, quantity, condition, owner });
+      expect(docID1).to.not.equal(docID2);
+    });
+
+    it('Can update', function test3(done) {
       const name = faker.lorem.words();
       const quantity = faker.datatype.number({
         min: 1,
@@ -67,6 +77,21 @@ if (Meteor.isServer) {
           }),
       );
       done();
+    });
+
+    it('Can dumpOne, removeIt, and restoreOne', function test4() {
+      const origDoc = Stuffs.findOne({});
+      let docID = origDoc._id;
+      const dumpObject = Stuffs.dumpOne(docID);
+      Stuffs.removeIt(docID);
+      expect(Stuffs.isDefined(docID)).to.be.false;
+      docID = Stuffs.restoreOne(dumpObject);
+      expect(Stuffs.isDefined(docID)).to.be.true;
+      const doc = Stuffs.findDoc(docID);
+      expect(doc.name).to.equal(origDoc.name);
+      expect(doc.quantity).to.equal(origDoc.quantity);
+      expect(doc.condition).to.equal(origDoc.condition);
+      expect(doc.owner).to.equal(origDoc.owner);
     });
   });
 }

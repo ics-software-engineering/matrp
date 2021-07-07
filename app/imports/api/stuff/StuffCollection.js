@@ -136,6 +136,14 @@ class StuffCollection extends BaseCollection {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
   }
 
+  dumpOne(docID) {
+    const doc = this.findDoc(docID);
+    const name = doc.name;
+    const quantity = doc.quantity;
+    const condition = doc.condition;
+    const owner = doc.owner;
+    return { name, quantity, condition, owner };
+  }
 }
 
 /**

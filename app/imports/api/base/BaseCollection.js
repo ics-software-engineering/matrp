@@ -139,7 +139,7 @@ class BaseCollection {
 
   /**
    * Returns true if the passed entity is in this collection.
-   * @param { String | Object } name The docID, or an object specifying a documennt.
+   * @param { String | Object } name The docID, or an object specifying a document.
    * @returns {boolean} True if name exists in this collection.
    */
   isDefined(name) {
@@ -184,6 +184,17 @@ class BaseCollection {
   }
 
   /**
+   * Verifies that the passed object is one of this collection's instances.
+   * @param { String | List } name Should be a defined ID or doc in this collection.
+   * @throws { Meteor.Error } If not defined.
+   */
+  assertDefined(name) {
+    if (!this.isDefined(name)) {
+      throw new Meteor.Error(`${name} is not a valid instance of ${this._type}.`);
+    }
+  }
+
+  /**
    * Default implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin or Advisor.
    * This is used in the define, update, and removeIt Meteor methods associated with each class.
    * @param userId The userId of the logged in user. Can be null or undefined
@@ -210,7 +221,7 @@ class BaseCollection {
    */
   dumpAll() {
     const dumpObject = {
-      name: this.collectionName,
+      name: this._collectionName,
       contents: this.find().map((docID) => this.dumpOne(docID)),
     };
     // If a collection doesn't want to be dumped, it can just return null from dumpOne.
@@ -229,7 +240,7 @@ class BaseCollection {
    * @returns { Object } An object representing this document.
    */
   dumpOne(docID) {
-    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName} on ${docID}`);
+    throw new Meteor.Error(`Default dumpOne method invoked by collection ${this._collectionName} on ${docID}`);
   }
 
   /**

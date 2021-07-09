@@ -19,8 +19,7 @@ class AdminProfileCollection extends BaseProfileCollection {
   define({ email, firstName, lastName }) {
     if (Meteor.isServer) {
       const username = email;
-      const user = Meteor.users.findOne({ username });
-      // console.log(email, user);
+      const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.ADMIN;
         const profileID = this._collection.insert({ email, firstName, lastName, userID: this.getFakeUserId(), role });
@@ -57,9 +56,8 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @param profileID The ID for this profile object.
    */
   removeIt(profileID) {
-    const docID = this.getID(profileID);
-    if (this.isDefined(docID)) {
-      return super.removeIt(docID);
+    if (this.isDefined(profileID)) {
+      return super.removeIt(profileID);
     }
     return null;
   }

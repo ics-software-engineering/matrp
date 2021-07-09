@@ -95,7 +95,7 @@ class UserCollection {
    * @return {boolean}
    */
   isReferenced(user) {
-    return Stuffs.find({ owner: user }).fetch().length() > 0;
+    return Stuffs.find({ owner: user }).fetch().length > 0;
   }
 
   /**

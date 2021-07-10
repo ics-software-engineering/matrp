@@ -19,14 +19,17 @@ class UserProfileCollection extends BaseProfileCollection {
   define({ email, firstName, lastName }) {
     if (Meteor.isServer) {
       const username = email;
-      const user = Meteor.users.findOne({ username });
+      const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.USER;
-        const profileID = this._collection.insert({ email, firstName, lastName, role });
+        const profileID = this._collection.insert({ email, firstName, lastName, userID: this.getFakeUserId(), role });
         const userID = Users.define({ username, role });
         this._collection.update(profileID, { $set: { userID } });
+        return profileID;
       }
+      return user._id;
     }
+    return undefined;
   }
 
   /**
@@ -45,6 +48,18 @@ class UserProfileCollection extends BaseProfileCollection {
       updateData.lastName = lastName;
     }
     this._collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Removes this profile, given its profile ID.
+   * Also removes this user from Meteor Accounts.
+   * @param profileID The ID for this profile object.
+   */
+  removeIt(profileID) {
+    if (this.isDefined(profileID)) {
+      return super.removeIt(profileID);
+    }
+    return null;
   }
 
   /**
@@ -67,7 +82,7 @@ class UserProfileCollection extends BaseProfileCollection {
     const problems = [];
     this.find().forEach((doc) => {
       if (doc.role !== ROLE.User) {
-        problems.push(`UserProfile instance does not have ROLE.User: ${doc}`);
+        problems.push(`UserProfile instance does not have ROLE.USER: ${doc}`);
       }
     });
     return problems;

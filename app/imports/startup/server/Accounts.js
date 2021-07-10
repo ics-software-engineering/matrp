@@ -2,22 +2,17 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../api/role/Role';
+import { AdminProfiles } from '../../api/user/AdminProfileCollection';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
 
 /* eslint-disable no-console */
 
-function createUser(email, password, role) {
+function createUser(email, role, firstName, lastName, password) {
   console.log(`  Creating user ${email} with role ${role}.`);
-  const userID = Accounts.createUser({
-    username: email,
-    email: email,
-    password: password,
-  });
   if (role === ROLE.ADMIN) {
-    Roles.createRole(ROLE.ADMIN, { unlessExists: true });
-    Roles.addUsersToRoles(userID, ROLE.ADMIN);
+    AdminProfiles.define({ email, firstName, lastName, password });
   } else { // everyone else is just a user.
-    Roles.createRole(ROLE.USER, { unlessExists: true });
-    Roles.addUsersToRoles(userID, ROLE.USER);
+    UserProfiles.define({ email, firstName, lastName, password });
   }
 }
 
@@ -25,7 +20,7 @@ function createUser(email, password, role) {
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultAccounts) {
     console.log('Creating the default user(s)');
-    Meteor.settings.defaultAccounts.map(({ email, password, role }) => createUser(email, password, role));
+    Meteor.settings.defaultAccounts.map(({ email, password, role, firstName, lastName }) => createUser(email, role, firstName, lastName, password));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }

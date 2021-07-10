@@ -6,7 +6,7 @@ import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItemAdmin from '../components/StuffItemAdmin';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-const ListStuffAdmin = () => ((this.props.ready) ? (
+const ListStuffAdmin = ({ stuffs, ready }) => ((ready) ? (
   <Container>
     <Header as="h2" textAlign="center">List Stuff (Admin)</Header>
     <Table celled>
@@ -19,7 +19,7 @@ const ListStuffAdmin = () => ((this.props.ready) ? (
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {this.props.stuffs.map((stuff) => <StuffItemAdmin key={stuff._id} stuff={stuff} />)}
+        {stuffs.map((stuff) => <StuffItemAdmin key={stuff._id} stuff={stuff} />)}
       </Table.Body>
     </Table>
   </Container>
@@ -39,6 +39,7 @@ export default withTracker(() => {
   const ready = subscription.ready();
   // Get the Stuff documents and sort by owner then name
   const stuffs = Stuffs.find({}, { sort: { owner: 1, name: 1 } }).fetch();
+  // console.log(stuffs, ready);
   return {
     stuffs,
     ready,

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const StuffItem = () => (
+const StuffItem = ({ stuff }) => (
   <Table.Row>
-    <Table.Cell>{this.props.stuff.name}</Table.Cell>
-    <Table.Cell>{this.props.stuff.quantity}</Table.Cell>
-    <Table.Cell>{this.props.stuff.condition}</Table.Cell>
+    <Table.Cell>{stuff.name}</Table.Cell>
+    <Table.Cell>{stuff.quantity}</Table.Cell>
+    <Table.Cell>{stuff.condition}</Table.Cell>
     <Table.Cell>
-      <Link to={`/edit/${this.props.stuff._id}`}>Edit</Link>
+      <Link to={`/edit/${stuff._id}`}>Edit</Link>
     </Table.Cell>
   </Table.Row>
 );

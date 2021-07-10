@@ -49,11 +49,11 @@ class UserCollection {
    * @returns { String } The docID of the newly created user.
    * @throws { Meteor.Error } If the user exists.
    */
-  define({ username, role }) {
+  define({ username, role, password }) {
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
       // In test Meteor.settings is not set from settings.development.json so we use _.get to see if it is set.
-      const credential = this._generateCredential();
+      const credential = password || this._generateCredential();
       if (_.get(Meteor, 'settings.public.development', false)) {
         const userID = Accounts.createUser({ username: username, email: username, password: credential });
         Roles.addUsersToRoles(userID, [role]);
@@ -119,7 +119,7 @@ class UserCollection {
     if (!userDoc) {
       console.error('Error: user is not defined: ', user);
     }
-    return userDoc._id;
+    return userDoc?._id;
   }
 
   /**
@@ -136,6 +136,25 @@ class UserCollection {
       throw new Meteor.Error(`Error in getIDs(): Failed to convert one of ${users} to an ID.`);
     }
     return ids;
+  }
+
+  /**
+   * Returns the profile document associated with user.
+   * @param user The username or userID.
+   * @returns { Object } The profile document.
+   * @throws { Meteor.Error } If the document was not found.
+   */
+  getProfile(user) {
+    // First, let's check to see if user is actually a profile (or looks like one). If so, just return it.
+    if (_.isObject(user) && _.has(user, 'firstName') && _.has(user, 'lastName') && _.has(user, 'role')) {
+      return user;
+    }
+    const profile = this.hasProfile(user);
+    if (!profile) {
+      console.error(`No profile found for user ${user}`);
+      throw new Meteor.Error(`No profile found for user ${user}`);
+    }
+    return profile;
   }
 
 }

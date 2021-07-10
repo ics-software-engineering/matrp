@@ -6,7 +6,7 @@ import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItem from '../components/StuffItem';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-const ListStuff = () => ((this.props.ready) ? (
+const ListStuff = ({ ready, stuffs }) => ((ready) ? (
   <Container>
     <Header as="h2" textAlign="center">List Stuff</Header>
     <Table celled>
@@ -19,7 +19,7 @@ const ListStuff = () => ((this.props.ready) ? (
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {this.props.stuffs.map((stuff) => <StuffItem key={stuff._id} stuff={stuff} />)}
+        {stuffs.map((stuff) => <StuffItem key={stuff._id} stuff={stuff} />)}
       </Table.Body>
     </Table>
   </Container>

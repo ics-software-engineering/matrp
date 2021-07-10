@@ -5,13 +5,14 @@ import { AutoForm, ErrorsField, HiddenField, NumField, SelectField, SubmitField,
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import { useParams } from 'react-router';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import { updateMethod } from '../../api/base/BaseCollection.methods';
 
 const bridge = new SimpleSchema2Bridge(Stuffs._schema);
 
 /** Renders the Page for editing a single document. */
-const EditStuff = () => {
+const EditStuff = ({ doc, ready }) => {
 
   // On successful submit, insert the data.
   const submit = (data) => {
@@ -23,11 +24,11 @@ const EditStuff = () => {
       .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
 
-  return (this.props.ready) ? (
+  return (ready) ? (
     <Grid container centered>
       <Grid.Column>
         <Header as="h2" textAlign="center">Edit Stuff</Header>
-        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={this.props.doc}>
+        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
           <Segment>
             <TextField name='name' />
             <NumField name='quantity' decimal={false} />
@@ -45,20 +46,20 @@ const EditStuff = () => {
 // Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use.
 EditStuff.propTypes = {
   doc: PropTypes.object,
-  model: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
-export default withTracker(({ match }) => {
+export default withTracker(() => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
-  const documentId = match.params._id;
+  const { _id } = useParams();
+  const documentId = _id;
   // Get access to Stuff documents.
   const subscription = Stuffs.subscribeStuff();
   // Determine if the subscription is ready
   const ready = subscription.ready();
   // Get the document
-  const doc = Stuffs.findOne(documentId);
+  const doc = Stuffs.findDoc(documentId);
   return {
     doc,
     ready,

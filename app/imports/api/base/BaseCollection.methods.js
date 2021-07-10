@@ -5,6 +5,7 @@ import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
 import { MATRP } from '../matrp/MATRP';
 import { ROLE } from '../role/Role';
+import { loadCollectionNewDataOnly } from '../utilities/load-fixtures';
 
 /**
  * Meteor method used to define new instances of the given collection name.
@@ -77,36 +78,36 @@ export const dumpDatabaseMethod = new ValidatedMethod({
   },
 });
 
-// export const loadFixtureMethod = new ValidatedMethod({
-//   name: 'base.loadFixture',
-//   mixins: [CallPromiseMixin],
-//   validate: null,
-//   run(fixtureData) {
-//     // console.log('loadFixtureMethod', fixtureData);
-//     if (!this.userId) {
-//       throw new Meteor.Error('unauthorized', 'You must be logged in to load a fixture.', '');
-//     } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
-//       throw new Meteor.Error('unauthorized', 'You must be an admin to load a fixture.', '');
-//     }
-//     if (Meteor.isServer) {
-//       let ret = '';
-//       // console.log(RadGrad.collectionLoadSequence);
-//       CeTracker.collectionLoadSequence.forEach((collection) => {
-//         const result = loadCollectionNewDataOnly(collection, fixtureData, true);
-//         // console.log(collection.getCollectionName(), result);
-//         if (result) {
-//           ret = `${ret} ${result},`;
-//         }
-//       });
-//       // console.log(`loadFixtureMethod ${ret}`);
-//       const trimmed = ret.trim();
-//       if (trimmed.length === 0) {
-//         ret = 'Defined no new instances.';
-//       } else {
-//         ret = ret.substring(0, ret.length - 1); // trim off trailing ,
-//       }
-//       return ret;
-//     }
-//     return '';
-//   },
-// });
+export const loadFixtureMethod = new ValidatedMethod({
+  name: 'base.loadFixture',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run(fixtureData) {
+    // console.log('loadFixtureMethod', fixtureData);
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to load a fixture.', '');
+    } else if (!Roles.userIsInRole(this.userId, [ROLE.ADMIN])) {
+      throw new Meteor.Error('unauthorized', 'You must be an admin to load a fixture.', '');
+    }
+    if (Meteor.isServer) {
+      let ret = '';
+      // console.log(RadGrad.collectionLoadSequence);
+      MATRP.collectionLoadSequence.forEach((collection) => {
+        const result = loadCollectionNewDataOnly(collection, fixtureData, true);
+        // console.log(collection.getCollectionName(), result);
+        if (result) {
+          ret = `${ret} ${result},`;
+        }
+      });
+      // console.log(`loadFixtureMethod ${ret}`);
+      const trimmed = ret.trim();
+      if (trimmed.length === 0) {
+        ret = 'Defined no new instances.';
+      } else {
+        ret = ret.substring(0, ret.length - 1); // trim off trailing ,
+      }
+      return ret;
+    }
+    return '';
+  },
+});

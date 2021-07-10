@@ -20,7 +20,12 @@ const NavBar = ({ currentUser }) => {
           <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>List Stuff</Menu.Item>]
       ) : ''}
       {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
-        <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>
+        [<Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>,
+          <Dropdown item text="Manage" key="manage-dropdown">
+            <Dropdown.Menu>
+              <Dropdown.Item key="manage-database" as={NavLink} exact to="/manage-database" content="Database" />
+            </Dropdown.Menu>
+          </Dropdown>]
       ) : ''}
       <Menu.Item position="right">
         {currentUser === '' ? (
@@ -43,7 +48,8 @@ const NavBar = ({ currentUser }) => {
 };
 
 // Declare the types of all properties.
-NavBar.propTypes = {
+NavBar.propTypes =
+{
   currentUser: PropTypes.string,
 };
 

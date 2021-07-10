@@ -18,6 +18,7 @@ class AdminProfileCollection extends BaseProfileCollection {
    */
   define({ email, firstName, lastName, password }) {
     if (Meteor.isServer) {
+      // console.log('define', email, firstName, lastName, password);
       const username = email;
       const user = this.findOne({ email, firstName, lastName });
       if (!user) {

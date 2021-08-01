@@ -1,5 +1,4 @@
 import _ from 'lodash';
-// import { Stuffs } from '../stuff/StuffCollection';
 
 /**
  * Returns the definition array associated with collectionName in the loadJSON structure,
@@ -24,16 +23,6 @@ export const loadCollectionNewDataOnly = (collection, loadJSON, printToConsole) 
       collection.define(definition);
       count++;
     }
-    // switch (type) {
-    // case Stuffs.getType():
-    //   if (Stuffs.find(definition).count() === 0) {
-    //     Stuffs.define(definition);
-    //     count++;
-    //   }
-    //   break;
-    // default:
-    //   // do nothing.
-    // }
   });
   if (count > 1) {
     retVal += `Defined ${count} ${type}s`;

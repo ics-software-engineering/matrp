@@ -1,6 +1,11 @@
+## MATRP
+
+A template for quickly starting Meteor application development. An "industrial strength" [meteor-application-template-react](https://ics-software-engineering.github.io/meteor-application-template-react/).
+
+
 ![](https://raw.githubusercontent.com/ics-software-engineering/meteor-application-template-react/master/doc/landing-page.png)
 
-Meteor-application-template-react is a sample Meteor 2.0 application that illustrates:
+Meteor-application-template-react is a sample Meteor 2.3 application that illustrates:
 
   * A standard directory layout using 'imports/' as recommended in the [Meteor Guide](https://guide.meteor.com/structure.html)
   * [Semantic UI React](https://react.semantic-ui.com/) for user interface.

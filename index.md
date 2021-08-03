@@ -292,7 +292,8 @@ It's significantly easier to do development with ESLint integrated directly into
 #### Acceptance tests
 
 #### Running all the tests
-## Screencasts
+
+## Screencasts for Meteor Application Template React
 
 For more information about this system, please watch one or more of the following screencasts. Note that the current source code might differ slightly from the code in these screencasts, but the changes should be very minor.
 

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
+import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /**
  * Signup component is similar to signin component, but we create a new user instead.
@@ -46,7 +48,7 @@ const Signup = ({ location }) => {
     return <Redirect to={from} />;
   }
   return (
-    <Container id="signup-page">
+    <Container id={PAGE_IDS.SIGN_UP}>
       <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
         <Grid.Column>
           <Header as="h2" textAlign="center">
@@ -56,7 +58,7 @@ const Signup = ({ location }) => {
             <Segment stacked>
               <Form.Input
                 label="Email"
-                id="signup-form-email"
+                id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
                 icon="user"
                 iconPosition="left"
                 name="email"
@@ -66,7 +68,7 @@ const Signup = ({ location }) => {
               />
               <Form.Input
                 label="Password"
-                id="signup-form-password"
+                id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
                 icon="lock"
                 iconPosition="left"
                 name="password"
@@ -74,7 +76,7 @@ const Signup = ({ location }) => {
                 type="password"
                 onChange={handleChange}
               />
-              <Form.Button id="signup-form-submit" content="Submit" />
+              <Form.Button id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} content="Submit" />
             </Segment>
           </Form>
           <Message>

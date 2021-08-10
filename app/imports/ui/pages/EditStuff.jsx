@@ -8,6 +8,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { useParams } from 'react-router';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import { updateMethod } from '../../api/base/BaseCollection.methods';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const bridge = new SimpleSchema2Bridge(Stuffs._schema);
 
@@ -25,7 +26,7 @@ const EditStuff = ({ doc, ready }) => {
   };
 
   return (ready) ? (
-    <Grid container centered>
+    <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
       <Grid.Column>
         <Header as="h2" textAlign="center">Edit Stuff</Header>
         <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>

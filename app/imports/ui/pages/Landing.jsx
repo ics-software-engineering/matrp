@@ -1,9 +1,10 @@
 import React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
-  <Grid id='landing-page' verticalAlign='middle' textAlign='center' container>
+  <Grid id={PAGE_IDS.LANDING} verticalAlign='middle' textAlign='center' container>
 
     <Grid.Column width={4}>
       <Image size='small' circular src="/images/meteor-logo.png" />

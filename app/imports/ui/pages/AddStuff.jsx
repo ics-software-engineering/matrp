@@ -7,6 +7,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -41,7 +42,7 @@ const AddStuff = () => {
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   return (
-    <Grid container centered>
+    <Grid id={PAGE_IDS.ADD_STUFF} container centered>
       <Grid.Column>
         <Header as="h2" textAlign="center">Add Stuff</Header>
         <AutoForm ref={ref => {

@@ -4,10 +4,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItem from '../components/StuffItem';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 const ListStuff = ({ ready, stuffs }) => ((ready) ? (
-  <Container>
+  <Container id={PAGE_IDS.LIST_STUFF}>
     <Header as="h2" textAlign="center">List Stuff</Header>
     <Table celled>
       <Table.Header>

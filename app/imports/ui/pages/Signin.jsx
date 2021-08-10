@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -49,7 +51,7 @@ const Signin = ({ location }) => {
   }
   // Otherwise return the Login form.
   return (
-    <Container id="signin-page">
+    <Container id={PAGE_IDS.SIGN_IN}>
       <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
         <Grid.Column>
           <Header as="h2" textAlign="center">
@@ -59,7 +61,7 @@ const Signin = ({ location }) => {
             <Segment stacked>
               <Form.Input
                 label="Email"
-                id="signin-form-email"
+                id={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
                 icon="user"
                 iconPosition="left"
                 name="email"
@@ -69,7 +71,7 @@ const Signin = ({ location }) => {
               />
               <Form.Input
                 label="Password"
-                id="signin-form-password"
+                id={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}
                 icon="lock"
                 iconPosition="left"
                 name="password"
@@ -77,7 +79,7 @@ const Signin = ({ location }) => {
                 type="password"
                 onChange={handleChange}
               />
-              <Form.Button id="signin-form-submit" content="Submit" />
+              <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Submit" />
             </Segment>
           </Form>
           <Message>

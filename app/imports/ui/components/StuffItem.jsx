@@ -11,7 +11,7 @@ const StuffItem = ({ stuff }) => (
     <Table.Cell>{stuff.quantity}</Table.Cell>
     <Table.Cell>{stuff.condition}</Table.Cell>
     <Table.Cell>
-      <Link id={COMPONENT_IDS.LIST_STUFF_EDIT} to={`/edit/${stuff._id}`}>Edit</Link>
+      <Link className={COMPONENT_IDS.LIST_STUFF_EDIT} to={`/edit/${stuff._id}`}>Edit</Link>
     </Table.Cell>
   </Table.Row>
 );

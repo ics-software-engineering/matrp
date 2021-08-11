@@ -42,10 +42,21 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
+      const email = faker.internet.email();
+      const firstName = faker.name.firstName();
+      const lastName = faker.name.lastName();
+      const password = faker.internet.password();
+      const docID = UserProfiles.define({ email, firstName, lastName, password });
+      fc.assert(
+        fc.property(fc.lorem(1), fc.lorem(1), (fName, lName) => {
+          UserProfiles.update(docID, { firstName: fName, lastName: lName });
+          const user = UserProfiles.findDoc(docID);
+          expect(user.firstName).to.equal(fName);
+          expect(user.lastName).to.equal(lName);
+        }),
+      );
       done();
     });
 
-    it('Can dumpOne, removeIt, and restoreOne', function test4() {
-    });
   });
 }

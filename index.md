@@ -14,6 +14,7 @@ MATRP, an extension of [meteor-application-template-react](https://ics-software-
   * Unit testing for the Mongo collections.
   * Integration testing for the Meteor methods.
   * Acceptance testing using [TestCafe](https://testcafe.io/).
+  * Continuous Integration using [GitHub Actions](https://github.com/features/actions).
 
 The goal of this template is to help you get quickly started doing Meteor development by providing a reasonable directory structure for development and deployment, a set of common extensions to the core framework, and boilerplate code to implement basic page display, navigation, forms, roles, and collection manipulation.
 
@@ -42,7 +43,7 @@ $ meteor npm run start
 The first time you run the app, it will create some default users and data. Here is the output:
 
 ```
-⋊> ~/G/m/app on master ⨯ meteor npm run start
+⋊> ~/G/m/app on main ⨯ meteor npm run start
 
 
 > meteor-application-template-react-production@1.0.3 start /Users/carletonmoore/GitHub/matrp/app
@@ -90,6 +91,7 @@ The following sections describe the major features of this template.
 The top-level directory structure is:
 
 ```
+.github/    # holds the GitHub actions and issue templates
 app/        # holds the Meteor application sources
 checklists/ # holds review checklists
 config/     # holds configuration files, such as settings.development.json
@@ -221,7 +223,7 @@ The application implements several Collections: Stuffs, AdminProfiles, and UserP
 
 #### BaseCollection
 
-The BaseCollection class wraps the Mongo.collection. It defines several methods.
+The BaseCollection class wraps the Mongo.collection. It defines several helpful methods.
 
 #### Stuffs
 Each Stuffs document has the following fields: name, quantity, condition, and username.
@@ -258,7 +260,7 @@ The application allows users to register and create new accounts at any time.
 
 ### Authorization
 
-Only logged in users can manipulate Stuff documents (but any registered user can manipulate any Stuff document, even if they weren't the user that created it.)
+Only logged-in users can manipulate Stuff documents (but any registered user can manipulate any Stuff document, even if they weren't the user that created it.)
 
 ### Configuration
 
@@ -273,7 +275,7 @@ The [.gitignore](https://github.com/ics-software-engineering/matrp/blob/master/.
 The application includes a [.eslintrc](https://github.com/ics-software-engineering/matrp/blob/master/app/.eslintrc) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
 
 ```
-⋊> ~/G/m/app on master ⨯ meteor npm run lint
+⋊> ~/G/m/app on main ⨯ meteor npm run lint
 
 
 > meteor-application-template-react-production@1.0.3 lint /Users/carletonmoore/GitHub/matrp/app
@@ -287,11 +289,164 @@ It's significantly easier to do development with ESLint integrated directly into
 
 #### Unit tests
 
+The unit tests test each of the collections. To run the unit tests use the `test-unit` script.
+
+```
+⋊> ~/G/m/app on main ⨯ meteor npm run test-unit 
+
+> meteor-application-template-react-production@1.0.3 test-unit /Users/carletonmoore/GitHub/matrp/app
+> cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3100
+
+[[[[[ Tests ]]]]]                             
+
+=> Started proxy.                             
+=> Started MongoDB.                           
+I20210811-10:41:24.385(-10)?                  
+I20210811-10:41:24.506(-10)? --------------------------------
+I20210811-10:41:24.507(-10)? ----- RUNNING SERVER TESTS -----
+I20210811-10:41:24.507(-10)? --------------------------------
+I20210811-10:41:24.507(-10)? 
+I20210811-10:41:24.507(-10)? 
+I20210811-10:41:24.508(-10)? 
+I20210811-10:41:24.508(-10)?   StuffCollection
+I20210811-10:41:24.508(-10)? Monti APM: completed instrumenting the app
+=> Started your app.
+
+=> App running at: http://localhost:3100/
+I20210811-10:41:25.112(-10)?     ✓ Can define and removeIt (705ms)
+I20210811-10:41:25.115(-10)?     ✓ Can define duplicates
+I20210811-10:41:25.337(-10)?     ✓ Can update (222ms)
+I20210811-10:41:25.349(-10)?     ✓ Can dumpOne, removeIt, and restoreOne
+I20210811-10:41:25.354(-10)? 
+I20210811-10:41:25.354(-10)?   AdminProfileCollection
+I20210811-10:41:25.401(-10)? Defining ADMIN Una.Haley70@hotmail.com with password changeme
+I20210811-10:41:25.803(-10)? Defining ADMIN Clarissa.Rippin@hotmail.com with password changeme
+[ snip ]
+I20210811-10:41:34.594(-10)?     ✓ Can define and removeIt (9238ms)
+I20210811-10:41:34.597(-10)? Defining ADMIN Lottie48@yahoo.com with password changeme
+I20210811-10:41:34.682(-10)?     ✓ Cannot define duplicates (87ms)
+I20210811-10:41:34.685(-10)? Defining ADMIN Troy.Ruecker65@hotmail.com with password G4eHBwHJ23FXx7q
+I20210811-10:41:34.980(-10)?     ✓ Can update (298ms)
+I20210811-10:41:34.982(-10)? 
+I20210811-10:41:34.982(-10)?   UserProfileCollection
+I20210811-10:41:35.015(-10)? Defining USER Dominique.OKon@hotmail.com with password changeme
+I20210811-10:41:35.106(-10)? Defining USER Amely_Braun18@yahoo.com with password changeme
+[ snip ]
+I20210811-10:41:43.974(-10)?     ✓ Can define and removeIt (8990ms)
+I20210811-10:41:43.977(-10)? Defining USER Thalia.Hilll@gmail.com with password changeme
+I20210811-10:41:44.066(-10)?     ✓ Cannot define duplicates (92ms)
+I20210811-10:41:44.069(-10)? Defining USER Justus.Wehner@gmail.com with password 9EDF0mDZXMyzrjM
+I20210811-10:41:44.363(-10)?     ✓ Can update (297ms)
+I20210811-10:41:44.365(-10)? 
+I20210811-10:41:44.365(-10)? 
+I20210811-10:41:44.366(-10)?   10 passing (20s)
+I20210811-10:41:44.366(-10)? 
+I20210811-10:41:44.366(-10)? 
+I20210811-10:41:44.366(-10)? --------------------------------
+I20210811-10:41:44.366(-10)? ----- RUNNING CLIENT TESTS -----
+I20210811-10:41:44.366(-10)? --------------------------------
+I20210811-10:41:44.937(-10)? HeadlessChrome/92.0.4512.0
+W20210811-10:41:46.482(-10)? (STDERR) waitFor is deprecated and will be removed in a future release. See https://github.com/puppeteer/puppeteer/issues/6214 for details and how to migrate your code.
+I20210811-10:41:46.488(-10)?   0 passing (0ms)
+I20210811-10:41:46.564(-10)? All tests finished!
+I20210811-10:41:46.564(-10)? 
+I20210811-10:41:46.565(-10)? --------------------------------
+I20210811-10:41:46.565(-10)? SERVER FAILURES: 0
+I20210811-10:41:46.565(-10)? CLIENT FAILURES: 0
+I20210811-10:41:46.565(-10)? --------------------------------
+⋊> ~/G/m/app on main ⨯
+```
+
 #### Integration tests
+
+To test the ValidatedMethods use the integration test script `test-integration`.
+```
+⋊> ~/G/m/app on main ⨯ meteor npm run test-integration 
+
+> meteor-application-template-react-production@1.0.3 test-integration /Users/carletonmoore/GitHub/matrp/app
+> cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --full-app --once --driver-package meteortesting:mocha --port 3100
+
+[[[[[ Tests ]]]]]                             
+
+=> Started proxy.                             
+=> Started MongoDB.                           
+I20210811-10:51:38.533(-10)? Cannot initialize the database!  Please invoke meteor with a settings file.
+I20210811-10:51:38.675(-10)? 
+I20210811-10:51:38.676(-10)? --------------------------------
+I20210811-10:51:38.676(-10)? --- RUNNING APP SERVER TESTS ---
+I20210811-10:51:38.676(-10)? --------------------------------
+I20210811-10:51:38.676(-10)? 
+I20210811-10:51:38.676(-10)? 
+I20210811-10:51:38.677(-10)? 
+I20210811-10:51:38.677(-10)?   0 passing (0ms)
+I20210811-10:51:38.677(-10)? 
+I20210811-10:51:38.677(-10)? 
+I20210811-10:51:38.677(-10)? --------------------------------
+I20210811-10:51:38.677(-10)? --- RUNNING APP CLIENT TESTS ---
+I20210811-10:51:38.677(-10)? --------------------------------
+I20210811-10:51:38.880(-10)? Monti APM: completed instrumenting the app
+=> Started your app.
+
+=> App running at: http://localhost:3100/
+I20210811-10:51:39.208(-10)? HeadlessChrome/92.0.4512.0
+I20210811-10:51:40.838(-10)? Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+I20210811-10:51:41.794(-10)? 
+I20210811-10:51:41.795(-10)?   StuffCollection Meteor Methods
+W20210811-10:51:42.108(-10)? (STDERR) waitFor is deprecated and will be removed in a future release. See https://github.com/puppeteer/puppeteer/issues/6214 for details and how to migrate your code.
+I20210811-10:51:42.348(-10)?     ✓ Can define, update, and removeIt (551ms)
+I20210811-10:51:42.349(-10)?   AdminProfileCollection Meteor Methods
+I20210811-10:51:42.806(-10)? Defining ADMIN Lennie58@gmail.com with password changeme
+I20210811-10:51:42.927(-10)?     ✓ Can define, update, and removeIt (578ms)
+I20210811-10:51:42.929(-10)?   UserProfileCollection Meteor Methods
+I20210811-10:51:43.373(-10)? Defining USER Desmond.Schimmel@yahoo.com with password changeme
+I20210811-10:51:43.483(-10)?     ✓ Can define, update, and removeIt (554ms)
+I20210811-10:51:43.484(-10)?   3 passing (2s)
+I20210811-10:51:43.568(-10)? All tests finished!
+I20210811-10:51:43.568(-10)? 
+I20210811-10:51:43.568(-10)? --------------------------------
+I20210811-10:51:43.568(-10)? APP SERVER FAILURES: 0
+I20210811-10:51:43.569(-10)? APP CLIENT FAILURES: 0
+I20210811-10:51:43.569(-10)? --------------------------------
+⋊> ~/G/m/app on main ⨯         
+```
 
 #### Acceptance tests
 
+The MATRP acceptance tests ensure that all the application's pages render. Run the acceptance test using the `test-acceptance` script. 
+
+```
+⋊> ~/G/m/app on main ⨯ meteor npm run test-acceptance
+
+> meteor-application-template-react-production@1.0.3 test-acceptance /Users/carletonmoore/GitHub/matrp/app
+> meteor reset && testcafe chrome:headless tests/*.testcafe.js -q --app "meteor npm run start"
+
+Project reset.                                
+ Running tests in:
+ - Chrome 92.0.4515.131 / macOS 10.15.7
+
+ matrp localhost test with default db
+Waiting 15 seconds before running LandingPage.isDisplayed().
+Waiting 15 seconds before running LandingPage.isDisplayed().
+Waiting 15 seconds before running LandingPage.isDisplayed().
+Waiting 15 seconds before running LandingPage.isDisplayed().
+ ✓ Test that landing page shows up (unstable)
+ ✓ Test that sign in and sign out work
+ ✓ Test that sign up and sign out work
+ ✓ Test that user pages show up
+ ✓ Test that admin pages show up
+
+
+ 5 passed (1m 45s)
+⋊> ~/G/m/app on main ⨯   
+```
+
 #### Running all the tests
+
+You can run ESLint and all the tests using the `test-all` script.
+
+#### Continuous Integration using GitHub Actions
+
+MATRP uses GitHub Actions to run ESLint and all the tests every time code is pushed to `main`.
 
 ## Screencasts for Meteor Application Template React
 

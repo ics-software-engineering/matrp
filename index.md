@@ -1,5 +1,5 @@
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/landing-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/landing-page.png)
 
 MATRP, an extension of [meteor-application-template-react](https://ics-software-engineering.github.io/meteor-application-template-react/), is a sample Meteor 2.3 application that illustrates:
 
@@ -34,7 +34,7 @@ $ meteor npm install
 
 ## Running the system
 
-Once the libraries are installed, you can run the application by invoking the "start" script in the [package.json file](https://github.com/ics-software-engineering/matrp/blob/master/app/package.json):
+Once the libraries are installed, you can run the application by invoking the "start" script in the [package.json file](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/package.json):
 
 ```
 $ meteor npm run start
@@ -46,10 +46,10 @@ The first time you run the app, it will create some default users and data. Here
 ⋊> ~/G/m/app on main ⨯ meteor npm run start
 
 
-> meteor-application-template-react-production@1.0.3 start /Users/carletonmoore/GitHub/matrp/app
+> meteor-application-template-react-production@1.0.3 start /Users/carletonmoore/GitHub/matrp-semantic-ui/app
 > meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json
 
-[[[[[ ~/GitHub/matrp/app ]]]]]                
+[[[[[ ~/GitHub/matrp-semantic-ui/app ]]]]]                
 
 => Started proxy.                             
 => Started MongoDB.                           
@@ -72,7 +72,7 @@ I20210801-10:48:51.864(-10)? Monti APM: completed instrumenting the app
 
 ### Viewing the running app
 
-If all goes well, the template application will appear at [http://localhost:3000](http://localhost:3000).  You can login using the credentials in [settings.development.json](https://github.com/ics-software-engineering/matrp/blob/master/config/settings.development.json), or else register a new account.
+If all goes well, the template application will appear at [http://localhost:3000](http://localhost:3000).  You can login using the credentials in [settings.development.json](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/config/settings.development.json), or else register a new account.
 
 ### ESLint
 
@@ -115,7 +115,7 @@ client/
 imports/
   api/           # Define collections.
     base/        # The BaseCollection class. Wraps the Mongo collections.
-    matrp/       # Singleton instance holding all the collections.
+    matrp-semantic-ui/       # Singleton instance holding all the collections.
     role/        # The defined roles in this application.
     stuff/       # The Stuffs collection definition.
     user/        # The different profile collections, Admin and User.
@@ -152,7 +152,7 @@ By default, each user only sees the Stuff that they have created.  However, the 
 
 When you retrieve the app at http://localhost:3000, this is what should be displayed:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/landing-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/landing-page.png)
 
 The next step is to use the Login menu to either Login to an existing account or register a new account.
 
@@ -160,20 +160,20 @@ The next step is to use the Login menu to either Login to an existing account or
 
 Clicking on the Login link, then on the Sign In menu item displays this page:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/signin-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/signin-page.png)
 
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/register-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/register-page.png)
 
 
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/landing-after-login-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/landing-after-login-page.png)
 
 You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
 
@@ -181,13 +181,13 @@ You can now add new Stuff documents, and list the Stuff you have created. Note y
 
 After logging in, here is the page that allows you to add new Stuff:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/add-stuff-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/add-stuff-page.png)
 
 #### List Stuff page
 
 After logging in, here is the page that allows you to list all the Stuff you have created:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/list-stuff-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/list-stuff-page.png)
 
 You click the "Edit" link to go to the Edit Stuff page, shown next.
 
@@ -195,19 +195,19 @@ You click the "Edit" link to go to the Edit Stuff page, shown next.
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/edit-stuff-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/edit-stuff-page.png)
 
 #### Landing (after Login), Admin user
 
 You can define an "admin" user in the settings.json file. This user, after logging in, gets a special entry in the navbar:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/admin-landing-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/admin-landing-page.png)
 
 #### Admin page (list all users stuff)
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/admin-list-stuff-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/admin-list-stuff-page.png)
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 
@@ -215,7 +215,7 @@ Note that non-admin users cannot get to this page, even if they type in the URL 
 
 This page supports dumping and loading all the collections' data.
 
-![](https://raw.githubusercontent.com/ics-software-engineering/matrp/master/doc/admin-manage-database-page.png)
+![](https://raw.githubusercontent.com/ics-software-engineering/matrp-semantic-ui/master/doc/admin-manage-database-page.png)
 
 ### Collections
 
@@ -228,16 +228,16 @@ The BaseCollection class wraps the Mongo.collection. It defines several helpful 
 #### Stuffs
 Each Stuffs document has the following fields: name, quantity, condition, and username.
 
-The Stuffs collection is defined in [imports/api/stuff/StuffCollection.js](https://github.com/ics-software-engineering/matrp/blob/master/app/imports/api/stuff/StuffCollection.js).
+The Stuffs collection is defined in [imports/api/stuff/StuffCollection.js](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/imports/api/stuff/StuffCollection.js).
 
-The Stuffs collection is initialized in [imports/startup/server/Mongo.js](https://github.com/ics-software-engineering/matrp/blob/master/app/imports/startup/server/Mongo.js).
+The Stuffs collection is initialized in [imports/startup/server/Mongo.js](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/imports/startup/server/Mongo.js).
 
 To support recording additional information about users in the application, we've implemented two additional collections. 
 
 #### AdminProfiles
 Each AdminProfiles document has the following fields: email, firstName, lastName, role, and userID. The `userID` field holds the `Meteor.userID`. 
 
-The AdminProfiles collections is defined in [imports/api/user/AdminProfileCollection.js](https://github.com/ics-software-engineering/matrp/blob/master/app/imports/api/user/AdminProfileCollection.js).
+The AdminProfiles collections is defined in [imports/api/user/AdminProfileCollection.js](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/imports/api/user/AdminProfileCollection.js).
 
 ### CSS
 
@@ -247,14 +247,14 @@ The application uses the [React implementation of Semantic UI](http://react.sema
 
 For display and navigation among its four pages, the application uses [React Router](https://reacttraining.com/react-router/).
 
-Routing is defined in [imports/ui/layouts/App.jsx](https://github.com/ics-software-engineering/matrp/blob/master/app/imports/ui/layouts/App.jsx).
+Routing is defined in [imports/ui/layouts/App.jsx](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/imports/ui/layouts/App.jsx).
 
 
 ### Authentication
 
 For authentication, the application uses the Meteor accounts package.
 
-When the application is run for the first time, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/matrp/blob/master/config/settings.development.json)) should be passed to Meteor. That will lead to a default account being created through the code in [imports/startup/server/accounts.js](https://github.com/ics-software-engineering/matrp/blob/master/app/imports/startup/server/accounts.js).
+When the application is run for the first time, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/config/settings.development.json)) should be passed to Meteor. That will lead to a default account being created through the code in [imports/startup/server/accounts.js](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/imports/startup/server/accounts.js).
 
 The application allows users to register and create new accounts at any time.
 
@@ -264,21 +264,21 @@ Only logged-in users can manipulate Stuff documents (but any registered user can
 
 ### Configuration
 
-The [config](https://github.com/ics-software-engineering/matrp/tree/master/config) directory is intended to hold settings files.  The repository contains one file: [config/settings.development.json](https://github.com/ics-software-engineering/matrp/blob/master/config/settings.development.json).
+The [config](https://github.com/ics-software-engineering/matrp-semantic-ui/tree/master/config) directory is intended to hold settings files.  The repository contains one file: [config/settings.development.json](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/config/settings.development.json).
 
-The [.gitignore](https://github.com/ics-software-engineering/matrp/blob/master/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
+The [.gitignore](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
 
 ### Quality Assurance
 
 #### ESLint
 
-The application includes a [.eslintrc](https://github.com/ics-software-engineering/matrp/blob/master/app/.eslintrc) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
+The application includes a [.eslintrc](https://github.com/ics-software-engineering/matrp-semantic-ui/blob/master/app/.eslintrc) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
 
 ```
 ⋊> ~/G/m/app on main ⨯ meteor npm run lint
 
 
-> meteor-application-template-react-production@1.0.3 lint /Users/carletonmoore/GitHub/matrp/app
+> meteor-application-template-react-production@1.0.3 lint /Users/carletonmoore/GitHub/matrp-semantic-ui/app
 > eslint --quiet --fix --ext .jsx --ext .js ./imports
 
 ```
@@ -294,7 +294,7 @@ The unit tests test each of the collections. To run the unit tests use the `test
 ```
 ⋊> ~/G/m/app on main ⨯ meteor npm run test-unit 
 
-> meteor-application-template-react-production@1.0.3 test-unit /Users/carletonmoore/GitHub/matrp/app
+> meteor-application-template-react-production@1.0.3 test-unit /Users/carletonmoore/GitHub/matrp-semantic-ui/app
 > cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3100
 
 [[[[[ Tests ]]]]]                             
@@ -363,7 +363,7 @@ To test the ValidatedMethods use the integration test script `test-integration`.
 ```
 ⋊> ~/G/m/app on main ⨯ meteor npm run test-integration 
 
-> meteor-application-template-react-production@1.0.3 test-integration /Users/carletonmoore/GitHub/matrp/app
+> meteor-application-template-react-production@1.0.3 test-integration /Users/carletonmoore/GitHub/matrp-semantic-ui/app
 > cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --full-app --once --driver-package meteortesting:mocha --port 3100
 
 [[[[[ Tests ]]]]]                             
@@ -417,7 +417,7 @@ The MATRP acceptance tests ensure that all the application's pages render. Run t
 ```
 ⋊> ~/G/m/app on main ⨯ meteor npm run test-acceptance
 
-> meteor-application-template-react-production@1.0.3 test-acceptance /Users/carletonmoore/GitHub/matrp/app
+> meteor-application-template-react-production@1.0.3 test-acceptance /Users/carletonmoore/GitHub/matrp-semantic-ui/app
 > meteor reset && testcafe chrome:headless tests/*.testcafe.js -q --app "meteor npm run start"
 
 Project reset.                                

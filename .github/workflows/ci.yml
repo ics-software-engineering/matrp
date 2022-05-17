@@ -1,4 +1,4 @@
-name: ci-matrp
+name: ci-matrp-semantic-ui
 
 on:
   push:
